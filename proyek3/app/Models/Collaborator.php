@@ -15,7 +15,6 @@ class Collaborator extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'collab_id',
         'collaborator_name',
         'profile_image',
         'about_me',
@@ -31,5 +30,10 @@ class Collaborator extends Model
     public function school()
     {
         return $this->belongsTo(School::class, 'npsn', 'npsn');
+    }
+
+    public function moduleLkpds()
+    {
+        return $this->belongsToMany(ModuleLkpd::class, 'module_lkpd_collabs', 'collab_id', 'lkpd_id');
     }
 }

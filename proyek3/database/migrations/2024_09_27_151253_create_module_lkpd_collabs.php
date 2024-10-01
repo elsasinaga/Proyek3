@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('module_lkpd_collabs', function (Blueprint $table) {
             $table->foreignId('lkpd_id')->constrained('module_lkpds')->onDelete('cascade');
-            $table->foreignId('tag_id')->constrained('tags')->onDelete('cascade');
+            $table->foreignId('collab_id')->constrained('collaborators')->onDelete('cascade');
 
             $table->timestamps();
         });

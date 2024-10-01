@@ -15,7 +15,6 @@ class ModuleLkpd extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'lkpd_id',
         'lkpd_title',
         'lkpd_image',
         'lkpd_description',
@@ -38,5 +37,15 @@ class ModuleLkpd extends Model
     public function lkpdstep()
     {
         return $this->hasMany(LkpdStep::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'module_lkpd_tags', 'lkpd_id', 'tag_id');
+    }
+
+    public function collaborator()
+    {
+        return $this->belongsToMany(Tag::class, 'module_lkpd_collabs', 'lkpd_id', 'collab_id');
     }
 }
