@@ -6,32 +6,35 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('lkpd_commentars', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('lkpd_id');
             $table->text('commentar_contents');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('lkpd_id')->constrained('module_lkpds')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('parent_commentar')->nullable();
-            
-            $table->foreign('parent_commentar')
-                ->references('id')
-                ->on('lkpd_commentars')
-                ->onDelete('cascade');
-            
             $table->timestamps();
+
+            $table->foreign('lkpd_id')
+                  ->references('lkpd_id')
+                  ->on('module_lkpds')
+                  ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade');
+
+            $table->foreign('parent_commentar')
+                  ->references('id')
+                  ->on('lkpd_commentars')
+                  ->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('lkpd_comentars');
+        Schema::dropIfExists('lkpd_commentars');
     }
 };

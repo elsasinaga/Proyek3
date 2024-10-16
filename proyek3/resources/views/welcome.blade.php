@@ -8,6 +8,11 @@
 </head>
 <body>
   <div class="m-8">
+        @livewire('ModulLkpd')
+    </div>
+  @livewireScripts
+</body>
+</html>
         @livewire('LkpdPage')
     </div>
   @livewireScripts

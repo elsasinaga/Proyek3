@@ -9,11 +9,14 @@ class ModuleLkpd extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+
+    protected $table = 'module_lkpds'; // Sesuaikan dengan nama tabel di migrasi
+    protected $primaryKey = 'lkpd_id'; // Gunakan lkpd_id sebagai primary key
+    public function favorites()
+    {
+        return $this->hasMany(LkpdFavorite::class, 'lkpd_id', 'lkpd_id');
+    }
+    
     protected $fillable = [
         'lkpd_title',
         'lkpd_image',
@@ -22,6 +25,10 @@ class ModuleLkpd extends Model
         'category_id',
         'material_name',
         'material_image',
+        'Kelas',
+        'Jenjang',
+        'kolaborasi',
+        'tags'
     ];
 
     public function category()
@@ -34,9 +41,9 @@ class ModuleLkpd extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function lkpdstep()
+    public function lkpdSteps()
     {
-        return $this->hasMany(LkpdStep::class);
+        return $this->hasMany(LkpdStep::class, 'lkpd_id');
     }
 
     public function tags()
