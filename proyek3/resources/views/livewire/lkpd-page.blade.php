@@ -1,49 +1,39 @@
-<div class="px-60 py-8">
-    <div class="flex flex-wrap items-center gap-4 mb-6">
-        <!-- Kategori Dropdown -->
-        <div class="flex items-center mr-4">
-            <label class="block font-medium mb-2">Kategori</label>
-            <div class="inline-block relative w-40">
-                <select wire:model="category_id" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-1 px-2 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option value="">Semua Kategori</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
-                    @endforeach
-                </select>
+<div class="container mx-auto px-4 py-8">
+    <div class="mb-6">
+        <div class="flex flex-col sm:flex-row gap-4 items-end">
+            <!-- Kategori Dropdown -->
+            <div class="w-full sm:w-1/2 md:w-1/3">
+                <div class="mt-6 w-2/5">
+                    <x-select wire:model.live="category_id" id="category" class="mary-select w-full"
+                        label="Category"
+                        :options="$categories"
+                        option-value="id"
+                        option-label="category_name"
+                        placeholder="Semua"
+                        wire:model="category"
+                    />
+                </div>
             </div>
-        </div>
-
-        <!-- Search Bar -->
-        <div class="flex-1 mr-4">
-            <label class="block font-medium mb-2">Search</label>
-            <input type="text" wire:model="search" placeholder="Search..." class="block w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+            <!-- Search Bar -->
+            <div class="w-full sm:w-1/2 md:w-2/3">
+                <input type="text" wire:model.live="search" id="search" placeholder="Search..." class="input input-bordered md:w-1/3">
+            </div>
         </div>
     </div>
 
     <!-- Cards Grid Section -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         @foreach($lkpdModules as $lkpd)
-            <div class="bg-white border border-gray-200 rounded-lg shadow-md p-4">
-                <div class="w-full flex justify-center mb-4">
-                    <img class="w-52 h-52 object-cover" src="{{ $lkpd->lkpd_image ?? 'https://via.placeholder.com/200' }}" alt="{{ $lkpd->lkpd_title }}">
-                </div>
-                <hr class="mb-4 border-gray-300">
-                <div class="text-gray-700 text-sm font-semibold">
-                    {{ $lkpd->lkpd_title }} oleh {{ $lkpd->user->name }} di {{ $lkpd->category->category_name }}
-                </div>
-                <div class="mt-2">
-                    <strong>Tags:</strong>
-                    @foreach($lkpd->tags as $tag)
-                        <span class="bg-gray-200 rounded-full px-2 py-1 text-xs text-gray-700 mr-2">{{ $tag->tag_name }}</span>
-                    @endforeach
-                </div>
-                <div class="mt-2">
-                    <strong>Collaborators:</strong>
-                    @foreach($lkpd->collaborator as $collab)
-                        <span class="bg-gray-200 rounded-full px-2 py-1 text-xs text-gray-700 mr-2">{{ $collab->name }}</span>
-                    @endforeach
-                </div>
-            </div>
-        @endforeach
+        <x-card title="{{ $lkpd->lkpd_title }}" subtitle="oleh {{ $lkpd->user->name }}" shadow separator>
+            <figure>
+                <img class="w-full h-48 object-cover rounded-t-lg" src="{{ $lkpd->lkpd_image ?? 'https://via.placeholder.com/200' }}" alt="{{ $lkpd->lkpd_title }}">
+            </figure>
+        </x-card>
+    @endforeach
+
+    </div>
+
+    <div class="mt-6">
+        {{ $lkpdModules->links() }}
     </div>
 </div>

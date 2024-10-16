@@ -45,4 +45,14 @@ class ModuleLkpd extends Model
     {
         return $this->hasMany(LkpdStep::class, 'lkpd_id');
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'module_lkpd_tags', 'lkpd_id', 'tag_id');
+    }
+
+    public function collaborator()
+    {
+        return $this->belongsToMany(Tag::class, 'module_lkpd_collabs', 'lkpd_id', 'collab_id');
+    }
 }

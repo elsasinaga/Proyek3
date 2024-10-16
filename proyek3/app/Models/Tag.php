@@ -15,7 +15,6 @@ class Tag extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'tag_id',
         'tag_name',
         'category_id',
     ];
@@ -24,4 +23,10 @@ class Tag extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+    public function moduleLkpds()
+    {
+        return $this->belongsToMany(ModuleLkpd::class, 'module_lkpd_tags', 'tag_id', 'lkpd_id');
+    }
+
 }

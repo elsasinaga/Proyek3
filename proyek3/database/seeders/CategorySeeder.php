@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Category;
 
 class CategorySeeder extends Seeder
 {
@@ -13,9 +14,12 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        Category::insert([
-            ['category_name'=> 'Plugged'],
-            ['category_name'=> 'Unplugged'],
+        Category::create([
+            'category_name' => 'Plugged',
+        ]);
+
+        Category::create([
+            'category_name' => 'Unplugged',
         ]);
     }
 }

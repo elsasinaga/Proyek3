@@ -13,3 +13,8 @@
   @livewireScripts
 </body>
 </html>
+        @livewire('LkpdPage')
+    </div>
+  @livewireScripts
+</body>
+</html>
