@@ -42,16 +42,17 @@ class LkpdPage extends Component
        
         if ($this->search !== '') {
             $query->where(function ($q) {
-                $q->where('lkpd_title', 'like', '%' . $this->search . '%')
+                $q->whereRaw('LOWER(lkpd_title) LIKE ?', '%' . strtolower($this->search) . '%')
                   ->orWhereHas('tags', function ($q) {
-                      $q->where('tag_name', 'like', '%' . $this->search . '%');
+                      $q->whereRaw('LOWER(tag_name) LIKE ?', '%' . strtolower($this->search) . '%');
                   })
                   ->orWhereHas('user', function ($q) {
-                      $q->where('name', 'like', '%' . $this->search . '%');
+                      $q->whereRaw('LOWER(name) LIKE ?', '%' . strtolower($this->search) . '%');
                   })
-                  ->orWhere('lkpd_description', 'like', '%' . $this->search . '%');
+                  ->orWhereRaw('LOWER(lkpd_description) LIKE ?', '%' . strtolower($this->search) . '%');
             });
         }
+        
        
         $lkpdModules = $query->paginate(10);
 
