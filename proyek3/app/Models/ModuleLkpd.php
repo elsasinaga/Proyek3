@@ -11,11 +11,10 @@ class ModuleLkpd extends Model
 
 
     protected $table = 'module_lkpds'; // Sesuaikan dengan nama tabel di migrasi
-    protected $primaryKey = 'lkpd_id'; // Gunakan lkpd_id sebagai primary key
-    public function favorites()
-    {
-        return $this->hasMany(LkpdFavorite::class, 'lkpd_id', 'lkpd_id');
-    }
+    // public function favorites()
+    // {
+    //     return $this->hasMany(LkpdFavorite::class, 'lkpd_id', 'id');
+    // }
     
     protected $fillable = [
         'lkpd_title',

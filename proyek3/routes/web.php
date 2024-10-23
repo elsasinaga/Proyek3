@@ -2,7 +2,7 @@
 
 use App\Livewire\Welcome;
 use App\Livewire\LkpdPage;
-use App\Livewire\ProfilePage;
+use App\Livewire\Profile\ProfilePage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,5 +21,5 @@ Route::get('/', function(){
 });
 
 Route::get('/profile', function(){
-    return view('livewire\profile-page');
+    return view('livewire.profile.profile-page');
 });
