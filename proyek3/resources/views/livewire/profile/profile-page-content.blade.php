@@ -52,11 +52,7 @@
                     <!-- Komentar Tab -->
                     <button 
                         wire:click="setTab('komentar')"
-<<<<<<< HEAD
                         class="flex items-center pb-4 border-b-2 {{ $activeTab === 'komentar' ? 'border-green-500 text-green-500' : 'border-transparent hover:border-gray-300' }}"
-=======
-                        class="flex items-center pb-4 border-b-2 {{ $activeTab === 'komentar' ? 'border-blue-500 text-blue-500' : 'border-transparent hover:border-gray-300' }}"
->>>>>>> 11d2793a7a1b5de6cba32e06308f870944407316
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
