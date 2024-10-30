@@ -16,24 +16,15 @@ class Collaborator extends Model
      */
     protected $fillable = [
         'collaborator_name',
-        'profile_image',
-        'about_me',
-        'npsn',
-        'user_id',
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function school()
-    {
-        return $this->belongsTo(School::class, 'npsn', 'npsn');
-    }
 
     public function moduleLkpds()
     {
         return $this->belongsToMany(ModuleLkpd::class, 'module_lkpd_collabs', 'collab_id', 'lkpd_id');
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
     }
 }

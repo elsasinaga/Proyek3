@@ -19,8 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('is_admin')->default(false);
             $table->string('password');
-            $table->enum('notification_preference', ['none', 'immediate', 'daily'])
-                  ->default('immediate');
+            
             $table->rememberToken();
             $table->timestamps();
         });

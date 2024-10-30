@@ -5,39 +5,38 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 
 class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
+
     public function run(): void
     {
         User::create([
             'name' => 'Admin User',
             'username' => 'admin',
             'email' => 'admin@example.com',
-            'password' => Hash::make('password'), // hash password for security
+            'password' => Crypt::encryptString('password'),
             'is_admin' => true,
-            'notification_preference' => 'immediate',
         ]);
 
         User::create([
             'name' => 'Regular User',
-            'username' => 'akun1',
+            'username' => 'Messi',
             'email' => 'user@example.com',
-            'password' => Hash::make('password'),
+            'password' => Crypt::encryptString('password'),
             'is_admin' => false,
-            'notification_preference' => 'immediate',
         ]);
 
         User::create([
             'name' => 'Another User',
-            'username' => 'akun2',
+            'username' => 'Ronaldo',
             'email' => 'anotheruser@example.com',
-            'password' => Hash::make('password'),
+            'password' => Crypt::encryptString('password'),
             'is_admin' => false,
-            'notification_preference' => 'immediate',
         ]);
     }
 }

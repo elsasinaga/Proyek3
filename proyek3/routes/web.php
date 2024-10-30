@@ -22,14 +22,14 @@ Route::get('/', function(){
     return view('Welcome');
 });
 
-Route::get('/profile', function(){
-    return view('livewire.profile.profile-page');
-});
+// Route::get('/profile', function(){
+//     return view('livewire.profile.profile-page');
+// });
 
-Route::get('/profile/edit', function(){
-    return view('livewire.profile.edit-page');
-});
+// Route::get('/profile/edit', function(){
+//     return view('livewire.profile.edit-page');
+// });
 
-Route::get('/lkpd', function(){
-    return view('livewire.list-lkpd-page');
-});
+// Route::get('/lkpd', function(){
+//     return view('livewire.list-lkpd-page');
+// });
