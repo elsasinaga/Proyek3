@@ -51,7 +51,6 @@
                 </div>
             </div>
 
-
             <!-- Section 1: Profile -->
             <div class="px-60 flex items-center mb-4">
                 <div class="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
