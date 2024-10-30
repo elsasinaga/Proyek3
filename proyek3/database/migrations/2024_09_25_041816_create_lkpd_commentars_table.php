@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('lkpd_id')
-                  ->references('lkpd_id')
+                  ->references('id')
                   ->on('module_lkpds')
                   ->onDelete('cascade');
 

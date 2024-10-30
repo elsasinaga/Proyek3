@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('module_lkpds', function (Blueprint $table) {
-            $table->id('lkpd_id'); // Menggunakan lkpd_id sebagai primary key
+            $table->id(); // Menggunakan lkpd_id sebagai primary key
             $table->string('lkpd_title');
             $table->string('lkpd_image')->nullable();
             $table->text('lkpd_description')->nullable(); // Ubah ke text untuk deskripsi panjang
