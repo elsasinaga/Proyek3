@@ -41,7 +41,7 @@ class School extends Model
         'school_address',
     ];
 
-    public function collaborator()
+    public function Profile()
     {
         return $this->hasMany(Collaborator::class);
     }

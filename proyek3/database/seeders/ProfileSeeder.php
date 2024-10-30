@@ -6,13 +6,6 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Profile;
 
-$table->string('profile_image')->nullable();
-            $table->text('about_me')->nullable();
-            $table->string('npsn', 8);
-            $table->unsignedBigInteger('collab_id');
-            $table->unsignedBigInteger('user_id');
-            $table->enum('notification_preference', ['none', 'immediate', 'daily'])
-                  ->default('immediate');
 class ProfileSeeder extends Seeder
 {
     /**

@@ -4,6 +4,7 @@ namespace App\Livewire\Profile;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Models\Profile;
 use App\Models\Collaborator;
 use App\Models\School;
 use Illuminate\Support\Facades\Hash;
@@ -20,18 +21,21 @@ class UserProfileEdit extends Component
     public $email;
     public $currentPassword;
     public $newPassword;
+    public $created_at;
+
+    // Profile fields
+    public $profileId;
+    public $profile_image;
+    public $about_me;
     public $notification_preference;
     public $temp_notification_preference;
-    public $created_at;
+    public $temp_image;
+    public $npsn;
+    public $schoolName;
 
     // Collaborator fields
     public $collaboratorId;
     public $collaborator_name;
-    public $about_me;
-    public $npsn;
-    public $schoolName;
-    public $profile_image;
-    public $temp_image;
 
     protected $rules = [
         // User validation
@@ -40,35 +44,31 @@ class UserProfileEdit extends Component
         'email' => 'required|email',
         'currentPassword' => 'nullable|min:6',
         'newPassword' => 'nullable|min:6',
-        '$temp_notification_preference;' => 'required|in:none,immediate,daily',
+
+        // Profile validation
+        'temp_notification_preference' => 'required|in:none,immediate,daily',
+        'about_me' => 'nullable|string',
+        'temp_image' => 'nullable|image|max:1024', // 1MB Max
+        'npsn' => 'required|exists:schools,npsn',
 
         // Collaborator validation
         'collaborator_name' => 'required|min:3',
-        'about_me' => 'nullable|string',
-        'npsn' => 'required|exists:schools,npsn',
-        'temp_image' => 'nullable|image|max:1024', // 1MB Max
     ];
 
     public function setSchoolName()
     {
-        // Mengambil instance `Collaborator` terkait user
-        $collaborator = Collaborator::where('user_id', $this->userId)->first();
-
-        // Menggunakan relasi `school` pada `Collaborator` untuk mengambil nama sekolah
-        $this->schoolName = $collaborator && $collaborator->school 
-            ? $collaborator->school->school_name 
-            : 'Sekolah tidak ditemukan';
+        if ($this->npsn) {
+            $school = School::where('npsn', $this->npsn)->first();
+            $this->schoolName = $school ? $school->school_name : 'Sekolah tidak ditemukan';
+        }
     }
 
     public function mount()
     {
-        $user = User::find(1);
+        $user = User::find(2);
 
-        if ($user) {
-            $this->npsn = $user->collaborator->npsn ?? null;
-            $this->setSchoolName();
-        } else {
-            throw new \Exception('User dengan ID 2 tidak ditemukan');
+        if (!$user) {
+            throw new \Exception('User tidak ditemukan');
         }
         
         // Load user data
@@ -76,19 +76,25 @@ class UserProfileEdit extends Component
         $this->name = $user->name;
         $this->username = $user->username;
         $this->email = $user->email;
-        $this->currentPassword = 'Tes';
-        $this->notification_preference = $user->notification_preference;
-        $this->temp_notification_preference = $user->notification_preference;
         $this->created_at = $user->created_at;
 
+        // Load profile data if exists
+        $profile = $user->profile;
+        if ($profile) {
+            $this->profileId = $profile->id;
+            $this->profile_image = $profile->profile_image;
+            $this->about_me = $profile->about_me;
+            $this->notification_preference = $profile->notification_preference;
+            $this->temp_notification_preference = $profile->notification_preference;
+            $this->npsn = $profile->npsn;
+            $this->setSchoolName();
+        }
+
         // Load collaborator data if exists
-        $collaborator = $user->collaborator;
+        $collaborator = $user->profile?->collaborator;
         if ($collaborator) {
             $this->collaboratorId = $collaborator->id;
             $this->collaborator_name = $collaborator->collaborator_name;
-            $this->about_me = $collaborator->about_me;
-            $this->npsn = $collaborator->npsn;
-            $this->profile_image = $collaborator->profile_image;
         }
     }
 
@@ -118,7 +124,6 @@ class UserProfileEdit extends Component
         // Update user data
         $user->name = $this->name;
         $user->username = $this->username;
-        $user->notification_preference = $this->temp_notification_preference;
 
         // Update email if changed
         if ($user->email !== $this->email) {
@@ -139,24 +144,37 @@ class UserProfileEdit extends Component
 
         $user->save();
 
-        // Update or create collaborator
-        $collaborator = $user->collaborator ?? new Collaborator();
-        $collaborator->collaborator_name = $this->collaborator_name;
-        $collaborator->about_me = $this->about_me;
-        $collaborator->npsn = $this->npsn;
+        // Update or create profile
+        $profile = $user->profile ?? new Profile();
+        $profile->about_me = $this->about_me;
+        $profile->notification_preference = $this->temp_notification_preference;
+        $profile->npsn = $this->npsn;
         
         // Handle profile image upload
         if ($this->temp_image) {
             $imagePath = $this->temp_image->store('profile-images', 'public');
-            $collaborator->profile_image = $imagePath;
+            $profile->profile_image = $imagePath;
         }
 
-        // Associate with user if new collaborator
-        if (!$collaborator->exists) {
-            $collaborator->user_id = $user->id;
+        // Associate with user if new profile
+        if (!$profile->exists) {
+            $profile->user_id = $user->id;
         }
         
-        $collaborator->save();
+        $profile->save();
+
+        // Update or create collaborator if name is provided
+        if ($this->collaborator_name) {
+            $collaborator = $profile->collaborator ?? new Collaborator();
+            $collaborator->collaborator_name = $this->collaborator_name;
+            $collaborator->save();
+
+            // Associate collaborator with profile if new
+            if (!$profile->collab_id) {
+                $profile->collab_id = $collaborator->id;
+                $profile->save();
+            }
+        }
 
         $this->notification_preference = $this->temp_notification_preference;
 
