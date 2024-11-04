@@ -23,3 +23,7 @@ Route::get('/', function(){
 Route::get('/profile', function(){
     return view('livewire\profile-page');
 });
+
+Route::get('/lkpd', function(){
+    return view('livewire.lkpd.lkpd-detail-page');
+});
