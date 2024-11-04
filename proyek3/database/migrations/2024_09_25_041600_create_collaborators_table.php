@@ -14,20 +14,6 @@ return new class extends Migration
         Schema::create('collaborators', function (Blueprint $table) {
             $table->id();
             $table->string('collaborator_name');
-            $table->string('profile_image')->nullable();
-            $table->text('about_me')->nullable();
-            $table->string('npsn', 8);
-
-            $table->foreign('npsn')
-                ->references('npsn')
-                ->on('schools')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');    
-
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->unique()
-                ->onDelete('cascade');        
 
             $table->timestamps();
         });
