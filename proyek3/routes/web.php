@@ -30,6 +30,7 @@ Route::get('/profile', function(){
 Route::get('/lkpd', function(){
     return view('livewire.lkpd.lkpd-detail-page');
 });
+
 Route::get('/home', function () {
     return view('home.homepage'); 
 });
