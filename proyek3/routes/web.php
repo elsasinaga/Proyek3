@@ -3,6 +3,7 @@
 use App\Livewire\Welcome;
 use App\Livewire\LkpdPage;
 use App\Livewire\ProfilePage;
+use App\Http\Livewire\Slider;
 use App\Livewire\UserProfileEdit;
 use App\Livewire\ListLkpd;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,7 @@ Route::get('/profile', function(){
 
 Route::get('/lkpd', function(){
     return view('livewire.lkpd.lkpd-detail-page');
+});
+Route::get('/home', function () {
+    return view('home.homepage'); 
 });
