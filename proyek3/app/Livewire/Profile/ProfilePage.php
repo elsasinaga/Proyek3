@@ -42,7 +42,7 @@ class ProfilePage extends Component
 
     public function openSettings()
     {
-        $this->redirect(route('livewire.profile.edit-page'));
+        return redirect()->to('/profile/edit');
     }
 
     public function openLkpdForm()
