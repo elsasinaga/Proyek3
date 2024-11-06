@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
         'is_admin',
@@ -44,8 +45,13 @@ class User extends Authenticatable
         'is_admin' => 'boolean',
     ];
 
-    public function collaborator()
+    public function profile()
     {
-        return $this->hasOne(Collaborator::class);
+        return $this->hasOne(Profile::class);
+    }
+
+    public function moduleLkpd()
+    {
+        return $this->hasMany(Profile::class);
     }
 }

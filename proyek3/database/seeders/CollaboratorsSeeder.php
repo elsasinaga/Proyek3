@@ -15,18 +15,18 @@ class CollaboratorsSeeder extends Seeder
     {
         Collaborator::create([
             'collaborator_name' => 'Messi',
-            'profile_image'=> '',
-            'about_me' => 'tes1',
-            'npsn' => '12345678',
-            'user_id' => 2,
         ]);
 
         Collaborator::create([
             'collaborator_name' => 'Ronaldo',
-            'profile_image'=> '',
-            'about_me' => 'tes2',
-            'npsn' => '87654321',
-            'user_id' => 3,
         ]);
-    }
+
+        Collaborator::create([
+            'collaborator_name' => 'Dzaki',
+        ]);
+
+        Collaborator::create([
+            'collaborator_name' => 'Jupri',
+        ]);
+    }   
 }
