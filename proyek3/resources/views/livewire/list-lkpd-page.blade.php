@@ -7,6 +7,7 @@
     @livewireStyles
 </head>
 <body>
+    @livewire('navbar')
     @livewire('list-lkpd')
     @livewireScripts
 </body>

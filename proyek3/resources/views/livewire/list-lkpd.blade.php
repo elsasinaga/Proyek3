@@ -1,4 +1,4 @@
-<div class="mt-4 mb-8">
+<div class="mt-8 mb-8">
     <div class="px-60 mb-12">
         <div class="flex items-start justify-between space-x-6">
             <!-- Category Dropdown -->

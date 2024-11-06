@@ -45,7 +45,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 448 512">
                                         <path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l352 0 0 256c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256z"/>
                                     </svg>
-                                    <p class="text-sm text-gray-600">{{ $created_at }}</p>
+                                    <p class="text-sm text-gray-600">{{ $created_at->format('d F Y') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -74,8 +74,12 @@
                         </div>
                         <div>
                             <label class="block text-gray-600">Asal Sekolah</label>
-                            <input type="text" value="{{ $schoolName }}" 
-                                class="w-full p-2 border border-gray-300 rounded" readonly>
+                            <select wire:model="npsn" class="w-full p-2 border border-gray-300 rounded bg-white">
+                                <option value="">Pilih Sekolah</option>
+                                @foreach ($this->getSchools() as $school)
+                                    <option value="{{ $school->npsn }}">{{ $school->school_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div>
                             <label class="block text-gray-600">Email</label>
@@ -92,7 +96,7 @@
 
 
             <!-- Section 2: Email -->
-            <div class="px-60 flex items-center mb-4">
+            <!-- <div class="px-60 flex items-center mb-4">
                 <div class="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
                 <h2 class="text-xl font-semibold text-gray-800">Email</h2>
             </div>
@@ -104,7 +108,7 @@
                             <button class="ml-2 px-4 py-2 bg-green-500 text-white rounded">Ganti Email</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
             <!-- Section 3: Password -->

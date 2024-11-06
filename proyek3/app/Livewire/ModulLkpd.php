@@ -2,13 +2,15 @@
 
 namespace App\Livewire;
 
+use App\Models\Tag;
 use Livewire\Component;
 use App\Models\Category;
-use Livewire\WithFileUploads;
-use Livewire\UploadedFile;
-use Livewire\TemporaryUploadedFile;
-use App\Models\ModuleLkpd;
 use App\Models\LkpdStep;
+use App\Models\ModuleLkpd;
+use Livewire\UploadedFile;
+use Livewire\Attributes\On;
+use Livewire\WithFileUploads;
+use Livewire\TemporaryUploadedFile;
 
 class ModulLkpd extends Component
 {
@@ -18,8 +20,9 @@ class ModulLkpd extends Component
     public $judul, $jenjang, $kelas, $category, $kolaborasi, $tags;
     public $introduction, $gambarIntroduction;
     public $bahanBahan, $gambarBahanBahan;
-    public $categories;
+    public $categories=[];
     public $steps=[];
+    public $lkpdSteps = [];
 
     public $jenjangOption = [
         ['jenjang' => 'SD'],
@@ -34,11 +37,25 @@ class ModulLkpd extends Component
         ['id' => 10, 'kelas' => '10'], ['id' => 11, 'kelas' => '11'], ['id' => 12, 'kelas' => '12']
     ];
     
-    protected $listeners = ['stepsUpdated'];
+    protected $listeners = [
+    'lkpdStepsUpdated' => 'updateLkpdSteps'
+];
+
+    public function updateLkpdSteps($updatedSteps)
+{
+    $this->steps = $updatedSteps;
+}
     
+
+        public function stepsUpdated($updatedSteps)
+    {
+        // Update state steps di komponen utama
+        $this->steps = $updatedSteps;
+    }
+
     public function mount()
     {
-        $this->categories = Category::take(2)->get();
+        $this->categories = Category::all();
         $this->steps = [
                 ['gambarLangkah' => '', 'judulLangkah' => '', 'deskripsiLangkah' => '']
         ];
@@ -46,16 +63,12 @@ class ModulLkpd extends Component
 
     public function render()
     {
-        return view('livewire.module-lkpd', [
+        //dump($this->categories);
+            return view('livewire.module-lkpd', [
             'jenjangOption' => $this->jenjangOption,
             'kelasOptions' => $this->kelasOptions,
             'categories' => $this->categories,
         ]);
-    }
-
-    public function stepsUpdated($updatedSteps)
-    {
-        $this->steps = $updatedSteps;
     }
 
     public function nextStep()
@@ -86,15 +99,20 @@ class ModulLkpd extends Component
                 $this->validate([
                     'introduction' => 'required',
                     'gambarIntroduction' => 'nullable|image|max:1024',
-                ]);
-                break;
-            case 3:
-                $this->validate([
                     'bahanBahan' => 'required',
                     'gambarBahanBahan' => 'nullable|image|max:1024',
                 ]);
                 break;
+            case 3:
+                $this->validate([
+                    'steps.*.gambarLangkah' => 'nullable|image|max:1024',
+                    "steps.*.judulLangkah" => 'required|string|max:255',
+                    'steps.*.deskripsiLangkah' => 'required|string',
+                    
+                ]);
+                break;
         }
+        $this->currentStep;
     }
 
     private function storeImage($image, $directory)
@@ -105,9 +123,32 @@ class ModulLkpd extends Component
     return $image; // Return as is if it's already a string (path) or null
 }
 
+
     public function submitForm()
     {
-        $this->validateStep(3);
+        $this->resetErrorBag();
+        // $this->validate([
+        //     'judul' => 'required',
+        //     'jenjang' => 'required',
+        //     'kelas' => 'required',
+        //     'category' => 'required',
+        //     'kolaborasi' => 'nullable',
+        //     'tags' => 'nullable',
+        //     'introduction' => 'required',
+        //     'gambarIntroduction' => 'nullable|image|max:1024',
+        //     'bahanBahan' => 'required',
+        //     'gambarBahanBahan' => 'nullable|image|max:1024',
+        // ]);
+        // // dd($this->steps);
+        // foreach ($this->steps as $index => $step) {
+        //     $this->validate([
+        //         "steps.$index.gambarLangkah" => 'nullable|image|max:1024',
+        //         "steps.$index.judulLangkah" => 'required|string|max:255',
+        //         "steps.$index.deskripsiLangkah" => 'required|string',
+        //     ]);
+        // }
+
+        $this->resetErrorBag();
         $introductionImagePath = $this->storeImage($this->gambarIntroduction, 'introduction_images');
         $bahanBahanImagePath = $this->storeImage($this->gambarBahanBahan, 'material_images');
 
@@ -122,12 +163,12 @@ class ModulLkpd extends Component
             'lkpd_image' => $introductionImagePath,
             'material_name' => $this->bahanBahan,
             'material_image' => $bahanBahanImagePath,
-            'user_id' => auth()->id(), // Gunakan ID pengguna yang sedang login
+            'user_id' => 1, // Gunakan ID pengguna yang sedang login
         ]);
 
         foreach ($this->steps as $index => $step) {
             LkpdStep::create([
-                'lkpd_id' => $lkpd->lkpd_id, // Gunakan lkpd_id sebagai foreign key
+                'lkpd_id' => $lkpd->lkpd_id,
                 'step_number' => $index + 1,
                 'step_title' => $step['judulLangkah'],
                 'step_description' => $step['deskripsiLangkah'],
@@ -136,7 +177,11 @@ class ModulLkpd extends Component
         }
 
         session()->flash('message', 'LKPD berhasil ditambahkan.');
+        $this->dispatch("resetProp");
+    }
+
+    #[On('resetProp')]
+    public function resetProp(){
         $this->reset();
-        $this->currentStep = 1;
     }
 }

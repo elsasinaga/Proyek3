@@ -7,6 +7,7 @@
     @livewireStyles
 </head>
 <body>
+    @livewire('navbar')
     @livewire('profile.profile-page')
     @livewireScripts
 </body>

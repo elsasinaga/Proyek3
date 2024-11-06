@@ -57,6 +57,11 @@ class UserProfileEdit extends Component
         'collaborator_name' => 'required|min:3',
     ];
 
+    public function getSchools()
+    {
+        return School::all(['npsn', 'school_name']);
+    }
+
     public function setSchoolName()
     {
         if ($this->npsn) {
