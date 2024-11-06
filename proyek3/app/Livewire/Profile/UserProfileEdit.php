@@ -19,8 +19,6 @@ class UserProfileEdit extends Component
     public $name;
     public $username;
     public $email;
-    public $currentPassword;
-    public $newPassword;
     public $created_at;
 
     // Profile fields
@@ -37,21 +35,25 @@ class UserProfileEdit extends Component
     public $collaboratorId;
     public $collaborator_name;
 
+    // Password fields
+    public $currentPassword = '';
+    public $newPassword = '';
+    public $showCurrentPassword = false;
+    public $showNewPassword = false;
+
+
     protected $rules = [
-        // User validation
         'name' => 'required|min:3',
         'username' => 'required|min:3',
         'email' => 'required|email',
         'currentPassword' => 'nullable|min:6',
         'newPassword' => 'nullable|min:6',
 
-        // Profile validation
         'temp_notification_preference' => 'required|in:none,immediate,daily',
         'about_me' => 'nullable|string',
         'temp_image' => 'nullable|image|max:1024', // 1MB Max
         'npsn' => 'required|exists:schools,npsn',
 
-        // Collaborator validation
         'collaborator_name' => 'required|min:3',
     ];
 
@@ -71,14 +73,12 @@ class UserProfileEdit extends Component
             throw new \Exception('User tidak ditemukan');
         }
         
-        // Load user data
         $this->userId = $user->id;
         $this->name = $user->name;
         $this->username = $user->username;
         $this->email = $user->email;
         $this->created_at = $user->created_at;
 
-        // Load profile data if exists
         $profile = $user->profile;
         if ($profile) {
             $this->profileId = $profile->id;
@@ -90,17 +90,28 @@ class UserProfileEdit extends Component
             $this->setSchoolName();
         }
 
-        // Load collaborator data if exists
         $collaborator = $user->profile?->collaborator;
         if ($collaborator) {
             $this->collaboratorId = $collaborator->id;
             $this->collaborator_name = $collaborator->collaborator_name;
         }
+
+        $this->temp_image = null;
     }
 
     public function selectNotificationPreference($preference)
     {
         $this->temp_notification_preference = $preference;
+    }
+
+    public function toggleCurrentPassword()
+    {
+        $this->showCurrentPassword = !$this->showCurrentPassword;
+    }
+
+    public function toggleNewPassword()
+    {
+        $this->showNewPassword = !$this->showNewPassword;
     }
 
     public function updatedTempImage()
@@ -144,32 +155,28 @@ class UserProfileEdit extends Component
 
         $user->save();
 
-        // Update or create profile
         $profile = $user->profile ?? new Profile();
         $profile->about_me = $this->about_me;
         $profile->notification_preference = $this->temp_notification_preference;
         $profile->npsn = $this->npsn;
         
-        // Handle profile image upload
+        // Profile Image
         if ($this->temp_image) {
             $imagePath = $this->temp_image->store('profile-images', 'public');
             $profile->profile_image = $imagePath;
         }
 
-        // Associate with user if new profile
         if (!$profile->exists) {
             $profile->user_id = $user->id;
         }
         
         $profile->save();
 
-        // Update or create collaborator if name is provided
         if ($this->collaborator_name) {
             $collaborator = $profile->collaborator ?? new Collaborator();
             $collaborator->collaborator_name = $this->collaborator_name;
             $collaborator->save();
 
-            // Associate collaborator with profile if new
             if (!$profile->collab_id) {
                 $profile->collab_id = $collaborator->id;
                 $profile->save();
@@ -179,6 +186,11 @@ class UserProfileEdit extends Component
         $this->notification_preference = $this->temp_notification_preference;
 
         session()->flash('message', 'Profil berhasil diperbarui');
+    }
+
+    Public function backToProfile()
+    {
+        return redirect()->back();
     }
 
     public function render()

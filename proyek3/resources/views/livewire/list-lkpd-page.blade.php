@@ -7,7 +7,6 @@
     @livewireStyles
 </head>
 <body>
-    <h1>Tes</h1>
     @livewire('list-lkpd')
     @livewireScripts
 </body>

@@ -1,29 +1,49 @@
 <?php
-
 namespace App\Livewire;
-
 use App\Models\ModuleLkpd;
 use App\Models\Category;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ListLkpd extends Component 
+class ListLkpd extends Component
 {
     use WithPagination;
-
+    
     public $categories;
     public $category_id = '';
     public $search = '';
+    public $sortField = 'created_at';
+    public $sortDirection = 'desc';
+    
+    protected $queryString = [
+        'search', 
+        'category_id',
+        'sortField',
+        'sortDirection'
+    ];
 
-    protected $queryString = ['search', 'category_id'];
     public function mount()
     {
         $this->categories = Category::all();
     }
+
     public function updatedCategoryId()
     {
         $this->resetPage();
     }
+
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
+        
+        $this->resetPage();
+    }
+
     public function render()
     {
         $query = ModuleLkpd::with(['user', 'category', 'tags', 'collaborator']);
@@ -31,7 +51,8 @@ class ListLkpd extends Component
         if ($this->category_id !== '') {
             $query->where('category_id', $this->category_id);
         }
-       
+        
+        // Filtering
         if ($this->search !== '') {
             $query->where(function ($q) {
                 $q->whereRaw('LOWER(lkpd_title) LIKE ?', '%' . strtolower($this->search) . '%')
@@ -45,10 +66,18 @@ class ListLkpd extends Component
             });
         }
         
+        // Sorting
+        if ($this->sortField === 'user_name') {
+            $query->join('users', 'module_lkpds.user_id', '=', 'users.id')
+                  ->orderBy('users.name', $this->sortDirection)
+                  ->select('module_lkpds.*');
+        } else {
+            $query->orderBy($this->sortField, $this->sortDirection);
+        }
        
-        $lkpdModules = $query->paginate(10);
-
-        return view('livewire.list-lkpd-page', [
+        $lkpdModules = $query->paginate(12);
+        
+        return view('livewire.list-lkpd', [
             'lkpdModules' => $lkpdModules
         ]);
     }

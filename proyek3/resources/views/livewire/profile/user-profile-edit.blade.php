@@ -42,7 +42,9 @@
                             <div class="flex flex-col">
                                 <h1 class="text-2xl font-bold">{{ $username }}</h1>
                                 <div class="flex items-center mt-1">
-                                    <i class="fas fa-graduation-cap w-5 h-5 mr-2 text-gray-600"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 448 512">
+                                        <path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l352 0 0 256c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256z"/>
+                                    </svg>
                                     <p class="text-sm text-gray-600">{{ $created_at }}</p>
                                 </div>
                             </div>
@@ -76,8 +78,9 @@
                                 class="w-full p-2 border border-gray-300 rounded" readonly>
                         </div>
                         <div>
-                            <label class="block text-gray-600">Kelas</label>
-                            <input type="text" class="w-full p-2 border border-gray-300 rounded" placeholder="Class" disabled>
+                            <label class="block text-gray-600">Email</label>
+                            <input type="text" value="{{ $email }}"
+                                class="w-full p-2 border border-gray-300 rounded" placeholder="Email" readonly>
                         </div>
                         <div class="col-span-2">
                             <label class="block text-gray-600">Tentang Saya</label>
@@ -109,18 +112,63 @@
                 <div class="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
                 <h2 class="text-xl font-semibold text-gray-800">Password</h2>
             </div>
-
-            <div class="px-60 mb-6">
+            
+            <div class="px-60 grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                {{-- Current Password Input --}}
                 <div class="border-l-4 border-gray-300 pl-5">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-gray-600">Password Sekarang</label>
-                            <input type="password" class="w-full p-2 border border-gray-300 rounded" wire:model="currentPassword" >
-                        </div>
-                        <div>
-                            <label class="block text-gray-600">Password Baru</label>
-                            <input type="password" class="w-full p-2 border border-gray-300 rounded" placeholder="New Password">
-                        </div>
+                    <label class="block text-gray-600">Password Sekarang</label>
+                    <div class="relative">
+                        <input 
+                            type="{{ $showCurrentPassword ? 'text' : 'password' }}"
+                            wire:model="currentPassword"
+                            class="w-full p-2 border border-gray-300 rounded pr-10" 
+                            placeholder="Current Password"
+                        >
+                        <button 
+                            type="button"
+                            wire:click="toggleCurrentPassword"
+                            class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                        >
+                            @if($showCurrentPassword)
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                                </svg>
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            @endif
+                        </button>
+                    </div>
+                </div>
+
+                {{-- New Password Input --}}
+                <div>
+                    <label class="block text-gray-600">Password Baru</label>
+                    <div class="relative">
+                        <input 
+                            type="{{ $showNewPassword ? 'text' : 'password' }}"
+                            wire:model="newPassword"
+                            class="w-full p-2 border border-gray-300 rounded pr-10" 
+                            placeholder="New Password"
+                        >
+                        <button 
+                            type="button"
+                            wire:click="toggleNewPassword"
+                            class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                        >
+                            @if($showNewPassword)
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                                </svg>
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                    <path stroke-linecapound" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            @endif
+                        </button>
                     </div>
                 </div>
             </div>
@@ -158,7 +206,7 @@
 
             <!-- Submit Button -->
             <div class="px-60 flex justify-end mb-20">
-                <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded">Batalkan Perubahan</button>
+                <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded" wire:click="backToProfile">Batalkan Perubahan</button>
                 <button class="px-4 py-2 bg-green-500 text-white rounded" wire:click="updateProfile">Simpan Perubahan</button>
             </div>
         </form>
