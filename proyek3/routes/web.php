@@ -3,8 +3,8 @@
 use App\Livewire\Welcome;
 use App\Livewire\LkpdPage;
 use App\Livewire\ProfilePage;
+use App\Livewire\Profile\UserProfileEdit;
 use App\Http\Livewire\Slider;
-use App\Livewire\UserProfileEdit;
 use App\Livewire\ListLkpd;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function(){
+Route::get('/', action: function(){
     return view('Welcome');
 });
 
@@ -27,10 +27,20 @@ Route::get('/profile', function(){
     return view('livewire.profile.profile-page');
 });
 
+Route::get('/profile/edit', UserProfileEdit::class)->name('livewire.profile.edit-page');
+
+Route::get('/profile/edit', function(){
+    return view('livewire.profile.edit-page');
+});
+
 Route::get('/lkpd', function(){
-    return view('livewire.lkpd.lkpd-detail-page');
+    return view('livewire.list-lkpd-page');
 });
 
 Route::get('/home', function () {
     return view('home.homepage'); 
+});
+
+Route::get('/lkpd/detail', function(){
+    return view('livewire.lkpd.lkpd-detail-page');
 });

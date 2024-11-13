@@ -28,7 +28,7 @@
     <!-- Introduction Section -->
     <div class="container mx-auto px-6 py-12">
         <div class="grid grid-cols-3 gap-6 text-center">
-            <div class="bg-white p-6 rounded-[9px] shadow-md">
+            <div class="bg-white p-6 rounded-[9px ] shadow-md">
                 <h3 class="text-green-600 font-bold text-xl">introduction part 1</h3>
                 <p class="text-gray-600 mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
