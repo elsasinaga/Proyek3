@@ -42,7 +42,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                 </svg>
                 TAMBAH
-            </button>
+        </button>
             <!-- <a href="/profile" class="flex items-center">
                 <img src="/path-to-profile-icon.png" alt="Profile" class="h-10 w-10 rounded-full border border-gray-300">
             </a> -->
@@ -56,7 +56,7 @@
                     class="h-10 w-10 rounded-full border border-gray-300 cursor-pointer" 
                     @click="open = !open"
                 />
-                
+
                 <!-- Dropdown Menu -->
                 <div 
                     x-show="open" 
