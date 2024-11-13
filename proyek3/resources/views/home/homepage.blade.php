@@ -10,12 +10,6 @@
 
     <!-- Livewire Styles -->
     @livewireStyles
-    <style>
-        .container {
-            margin-left: 60px;
-            margin-right: 60px;
-        }
-    </style>
 </head>
 
 <body class="bg-gray-100">
@@ -26,17 +20,17 @@
     @livewire('slider')
 
     <!-- Introduction Section -->
-    <div class="container mx-auto px-6 py-12">
+    <div class="container mx-auto max-w-screen-lg px-6 py-12">
         <div class="grid grid-cols-3 gap-6 text-center">
-            <div class="bg-white p-6 rounded-[9px ] shadow-md">
+            <div>
                 <h3 class="text-green-600 font-bold text-xl">introduction part 1</h3>
                 <p class="text-gray-600 mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
-            <div class="bg-white p-6 rounded-[9px] shadow-md">
+            <div>
                 <h3 class="text-green-600 font-bold text-xl">introduction part 2</h3>
                 <p class="text-gray-600 mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
-            <div class="bg-white p-6 rounded-[9px] shadow-md">
+            <div>
                 <h3 class="text-green-600 font-bold text-xl">introduction part 3</h3>
                 <p class="text-gray-600 mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
@@ -47,7 +41,7 @@
     <hr class="border-t border-gray-300 my-0 mx-6">
 
     <!-- Modul Section -->
-    <div class="container mx-auto px-6 py-10">
+    <div class="container mx-auto max-w-screen-lg px-6 py-10">
         <a href="#" class="block text-2xl font-bold mb-6 text-green-600 flex items-center hover:text-green-800 transition-colors duration-300">
             Modul Plugged 
             <svg class="w-6 h-6 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
