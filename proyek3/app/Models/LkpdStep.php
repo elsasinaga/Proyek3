@@ -15,7 +15,6 @@ class LkpdStep extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'lkpd_id',
         'step_number',
         'step_title',
         'step_description',

@@ -36,6 +36,7 @@ Route::get('/profile/edit', function(){
 Route::get('/lkpd', function(){
     return view('livewire.list-lkpd-page');
 });
+
 Route::get('/home', function () {
     return view('home.homepage'); 
 });

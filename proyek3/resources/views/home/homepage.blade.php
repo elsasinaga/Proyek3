@@ -10,6 +10,12 @@
 
     <!-- Livewire Styles -->
     @livewireStyles
+    <style>
+        .container {
+            margin-left: 60px;
+            margin-right: 60px;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100">

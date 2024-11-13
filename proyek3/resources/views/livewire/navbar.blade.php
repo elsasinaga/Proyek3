@@ -6,7 +6,7 @@
 
     <!-- Bagian 2: Beranda dan LKPD -->
     <div class="flex space-x-6">
-        <a href="/" class="text-green-600 hover:text-green-800 font-bold">Beranda</a>
+        <a href="/home" class="text-green-600 hover:text-green-800 font-bold">Beranda</a>
         <a href="/lkpd" class="text-green-600 hover:text-green-800 font-bold">LKPD</a>
     </div>
 
@@ -27,24 +27,46 @@
     <!-- Bagian 4: Tombol Login/Register atau Tambah dan Profil (Kondisi Login) -->
     <div class="flex space-x-4">
         @if($isLoggedIn)
-            <!-- Jika Pengguna Sudah Login -->
-            <button class="flex items-center px-4 py-2 rounded-[9px] border border-green-600 text-green-600 hover:bg-green-50 font-bold">
+        <!-- Jika Pengguna Belum Login -->
+        <button class="px-4 py-2 rounded-[9px] border border-green-600 text-green-600 hover:bg-green-50 font-bold">
+                Masuk
+            </button>
+            <button class="px-4 py-2 rounded-[9px] bg-green-600 text-white hover:bg-green-700 font-bold">
+                Register
+            </button>    
+        
+        @else
+        <!-- Jika Pengguna Sudah Login -->
+        <button class="flex items-center px-4 py-2 rounded-[9px] border border-green-600 text-green-600 hover:bg-green-50 font-bold">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                 </svg>
                 TAMBAH
             </button>
-            <a href="/profile" class="flex items-center">
+            <!-- <a href="/profile" class="flex items-center">
                 <img src="/path-to-profile-icon.png" alt="Profile" class="h-10 w-10 rounded-full border border-gray-300">
-            </a>
-        @else
-            <!-- Jika Pengguna Belum Login -->
-            <button class="px-4 py-2 rounded-[9px] border border-green-600 text-green-600 hover:bg-green-50 font-bold">
-                Masuk
-            </button>
-            <button class="px-4 py-2 rounded-[9px] bg-green-600 text-white hover:bg-green-700 font-bold">
-                Register
-            </button>
+            </a> -->
+
+            <!-- Profil & Dropdown dengan Alpine.js -->
+            <div x-data="{ open: false }" class="relative">
+                <!-- Foto Profile dengan @click untuk toggle dropdown -->
+                <img 
+                    src="/path-to-profile-icon.png" 
+                    alt="Profile" 
+                    class="h-10 w-10 rounded-full border border-gray-300 cursor-pointer" 
+                    @click="open = !open"
+                />
+                
+                <!-- Dropdown Menu -->
+                <div 
+                    x-show="open" 
+                    @click.away="open = false" 
+                    class="absolute right-0 mt-2 w-20 bg-white rounded-md shadow-lg py-1 z-10"
+                >
+                    <a href="/profile" class="block px-3 py-1 text-gray-800 hover:bg-gray-200">Profile</a>
+                    <a href="/home" class="block px-3 py-1 text-gray-800 hover:bg-gray-200">Logout</a>
+                </div>
+            </div>
         @endif
     </div>
 </nav>

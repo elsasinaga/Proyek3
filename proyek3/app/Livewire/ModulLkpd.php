@@ -126,7 +126,7 @@ class ModulLkpd extends Component
 
     public function submitForm()
     {
-        $this->resetErrorBag();
+        // $this->resetErrorBag();
         // $this->validate([
         //     'judul' => 'required',
         //     'jenjang' => 'required',
