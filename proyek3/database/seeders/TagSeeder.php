@@ -16,16 +16,22 @@ class TagSeeder extends Seeder
         Tag::create([
             'tag_name' => 'Geogebra',
             'category_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         Tag::create([
             'tag_name' => 'Robot Mouse',
             'category_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         Tag::create([
             'tag_name' => 'Kertas',
             'category_id' => 2,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
     }
 }

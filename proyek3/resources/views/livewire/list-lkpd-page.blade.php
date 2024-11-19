@@ -9,6 +9,7 @@
 <body>
     @livewire('navbar')
     @livewire('list-lkpd')
+    <!-- @livewire('makan', ['id' => 1]) -->
     @livewireScripts
 </body>
 </html>

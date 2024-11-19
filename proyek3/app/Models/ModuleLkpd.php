@@ -27,7 +27,7 @@ class ModuleLkpd extends Model
         'Kelas',
         'Jenjang',
         'kolaborasi',
-        'tags'
+        // 'tags'
     ];
 
     public function category()
@@ -47,7 +47,8 @@ class ModuleLkpd extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'module_lkpd_tags', 'lkpd_id', 'tag_id');
+        return $this->belongsToMany(Tag::class, 'module_lkpd_tags', 'lkpd_id', 'tag_id')
+                    ->withTimestamps(); // Tambahkan ini untuk mengisi timestamps
     }
 
     public function collaborator()

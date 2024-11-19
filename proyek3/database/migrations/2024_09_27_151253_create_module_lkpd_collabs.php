@@ -12,8 +12,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('module_lkpd_collabs', function (Blueprint $table) {
-            $table->foreignId('lkpd_id')->constrained('module_lkpds')->onDelete('cascade');
-            $table->foreignId('collab_id')->constrained('collaborators')->onDelete('cascade');
+            $table->id();
+
+            $table->unsignedBigInteger('lkpd_id');
+            $table->unsignedBigInteger('collab_id');
+
+            $table->unique(['lkpd_id', 'collab_id']);
+
+            $table->foreign('lkpd_id')
+                  ->references('id')
+                  ->on('module_lkpds')
+                  ->onDelete('cascade');
+
+            $table->foreign('collab_id')
+                  ->references('id')
+                  ->on('collaborators')
+                  ->onDelete('cascade');
+
+            // $table->foreignId('lkpd_id')->constrained('module_lkpds')->onDelete('cascade');
+            // $table->foreignId('collab_id')->constrained('collaborators')->onDelete('cascade');
 
             $table->timestamps();
         });

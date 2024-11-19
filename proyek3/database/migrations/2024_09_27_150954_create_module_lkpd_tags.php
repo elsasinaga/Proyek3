@@ -12,8 +12,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('module_lkpd_tags', function (Blueprint $table) {
-            $table->foreignId('lkpd_id')->constrained('module_lkpds')->onDelete('cascade');
-            $table->foreignId('tag_id')->constrained('tags')->onDelete('cascade');
+            $table->id();
+            
+            $table->unsignedBigInteger('lkpd_id');
+            $table->unsignedBigInteger('tag_id');
+
+            $table->unique(['lkpd_id', 'tag_id']);
+
+            $table->foreign('lkpd_id')
+                  ->references('id')
+                  ->on('module_lkpds')
+                  ->onDelete('cascade');
+
+            $table->foreign('tag_id')
+                  ->references('id')
+                  ->on('tags')
+                  ->onDelete('cascade');
+
+            // $table->foreignId('lkpd_id')->constrained('module_lkpds')->onDelete('cascade');
+            // $table->foreignId('tag_id')->constrained('tags')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -24,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('module_lkpds_tag');
+        Schema::dropIfExists('module_lkpd_tags');
     }
 };
