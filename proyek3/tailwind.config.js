@@ -1,14 +1,17 @@
+import daisyui from 'daisyui';
+
 export default {
     content: [
-        // You will probably also need those lines
+        // Path yang akan di-scan oleh Tailwind CSS
         "./resources/**/**/*.{js,blade.php}",
         "./app/View/Components/**/**/*.php",
         "./app/Livewire/**/**/*.php",
 
-        // Add mary
+        // Path untuk komponen tambahan (misalnya Mary)
         "./vendor/robsontenorio/mary/src/View/Components/**/*.php",
     ],
 
-    // Add daisyUI
-    plugins: [require("daisyui")],
+    // Tambahkan daisyUI
+    plugins: [daisyui],
 };
+

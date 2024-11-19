@@ -1,11 +1,5 @@
 <?php
 
-use App\Livewire\Welcome;
-use App\Livewire\LkpdPage;
-use App\Livewire\ProfilePage;
-use App\Livewire\Profile\UserProfileEdit;
-use App\Http\Livewire\Slider;
-use App\Livewire\ListLkpd;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,28 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', action: function(){
-    return view('Welcome');
-});
+Route::view('/', 'welcome');
 
-Route::get('/profile', function(){
-    return view('livewire.profile.profile-page');
-});
+Route::view('dashboard', 'dashboard')
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
-Route::get('/profile/edit', UserProfileEdit::class)->name('livewire.profile.edit-page');
+Route::view('profile', 'profile')
+    ->middleware(['auth'])
+    ->name('profile');
 
-Route::get('/profile/edit', function(){
-    return view('livewire.profile.edit-page');
-});
-
-Route::get('/lkpd', function(){
-    return view('livewire.list-lkpd-page');
-});
-
-Route::get('/home', function () {
-    return view('home.homepage'); 
-});
-
-Route::get('/lkpd/detail', function(){
-    return view('livewire.lkpd.lkpd-detail-page');
-});
+require __DIR__.'/auth.php';
