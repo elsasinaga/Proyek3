@@ -49,22 +49,28 @@
 
             <!-- Profil & Dropdown dengan Alpine.js -->
             <div x-data="{ open: false }" class="relative">
-                <!-- Foto Profile dengan @click untuk toggle dropdown -->
+                <!-- Foto Profile -->
                 <img 
-                    src="/path-to-profile-icon.png" 
+                    src="{{ $profile->profile_image ? Storage::url($profile->profile_image) : asset('storage/profile-images/default_profile.png') }}" 
                     alt="Profile" 
-                    class="h-10 w-10 rounded-full border border-gray-300 cursor-pointer" 
-                    @click="open = !open"
-                />
+                    @click="open = !open" 
+                    class="w-10 h-10 rounded-full border-2 border-gray-200 {{ !$profile->profile_image ? 'bg-gray-400' : '' }} cursor-pointer"
+                >
 
                 <!-- Dropdown Menu -->
                 <div 
                     x-show="open" 
                     @click.away="open = false" 
-                    class="absolute right-0 mt-2 w-20 bg-white rounded-md shadow-lg py-1 z-10"
+                    x-transition:enter="transition ease-out duration-200" 
+                    x-transition:enter-start="opacity-0 transform scale-95" 
+                    x-transition:enter-end="opacity-100 transform scale-100" 
+                    x-transition:leave="transition ease-in duration-150" 
+                    x-transition:leave-start="opacity-100 transform scale-100" 
+                    x-transition:leave-end="opacity-0 transform scale-95" 
+                    class="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg py-1 z-10"
                 >
-                    <a href="/profile" class="block px-3 py-1 text-gray-800 hover:bg-gray-200">Profile</a>
-                    <a href="/home" class="block px-3 py-1 text-gray-800 hover:bg-gray-200">Logout</a>
+                    <a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Profile</a>
+                    <a href="/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</a>
                 </div>
             </div>
         @endif
