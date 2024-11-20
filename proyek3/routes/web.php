@@ -44,3 +44,7 @@ Route::get('/home', function () {
 Route::get('/lkpd/detail', function(){
     return view('livewire.lkpd.lkpd-detail-page');
 });
+
+// Route::get('/makan', function () {
+//     return view('livewire.homepage'); 
+// });

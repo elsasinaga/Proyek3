@@ -4,6 +4,7 @@ namespace App\Livewire\Profile;
 
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\ModuleLkpd;
 use Livewire\Component;
 
 class ProfilePage extends Component
@@ -13,6 +14,8 @@ class ProfilePage extends Component
     public $user;
     public $profile;
     public $school;
+    public $lkpd;
+    public $lkpdVerif;
     
 
     public function mount()

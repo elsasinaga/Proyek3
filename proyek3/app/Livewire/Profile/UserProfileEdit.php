@@ -122,7 +122,7 @@ class UserProfileEdit extends Component
     public function updatedTempImage()
     {
         $this->validate([
-            'temp_image' => 'image|max:1024', // 1MB Max
+            'temp_image' => 'image|max:2048', // 2MB Max
         ]);
     }  
 

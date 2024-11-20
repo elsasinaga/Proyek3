@@ -52,6 +52,6 @@ class User extends Authenticatable
 
     public function moduleLkpd()
     {
-        return $this->hasMany(Profile::class);
+        return $this->hasMany(ModuleLkpd::class, 'user_id');
     }
 }

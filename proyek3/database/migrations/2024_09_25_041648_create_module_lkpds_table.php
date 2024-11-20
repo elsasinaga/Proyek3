@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('material_image')->nullable();
             $table->string('Kelas')->nullable();
             $table->string('Jenjang')->nullable();
+            $table->boolean('verification_status')->default(false);
             // $table->string('kolaborasi')->nullable(); 
             // $table->string('tags')->nullable(); 
             $table->timestamps();
