@@ -41,6 +41,6 @@ Route::get('/home', function () {
     return view('home.homepage'); 
 });
 
-Route::get('/lkpd/detail', function(){
-    return view('livewire.lkpd.lkpd-detail-page');
+Route::get('/lkpd/detail/{id}', function($id){
+    return view('livewire.lkpd.lkpd-detail-page', ['id' => $id]);
 });

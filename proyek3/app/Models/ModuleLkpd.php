@@ -53,6 +53,7 @@ class ModuleLkpd extends Model
 
     public function collaborator()
     {
-        return $this->belongsToMany(Tag::class, 'module_lkpd_collabs', 'lkpd_id', 'collab_id');
+        return $this->belongsToMany(Tag::class, 'module_lkpd_collabs', 'lkpd_id', 'collab_id')
+                    ->withPivot(['created_at', 'updated_at']);
     }
 }
