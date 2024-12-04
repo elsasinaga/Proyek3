@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lkpd_steps', function (Blueprint $table) {
+            $table->id();
+
             $table->foreignId('lkpd_id')->constrained('module_lkpds')->onDelete('cascade');   
             $table->integer('step_number')->unsigned();
 
-            $table->primary(['lkpd_id', 'step_number']);
-
+            $table->unique(['lkpd_id', 'step_number']);
+            
             $table->string('step_title');
             $table->string('step_description')->nullable();
             $table->string('step_image')->nullable();

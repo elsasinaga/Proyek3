@@ -1,18 +1,18 @@
 <div>
     <div class="w-full mx-auto">
         <div class="relative bg-gray-100">
-            <img src="{{'default-background.jpg' }}" 
+            <img src="{{asset('storage/profile-images/header-background.png') }}" 
                  alt="Background" 
-                 class="w-full h-36 object-cover">
+                 class="w-full h-36 object-cover" style="object-position: 50% 35%;">
         </div>
         
         <!-- Gambar Profil Pengguna -->
         <div class="mt-8 px-60">
             <div class="flex items-start relative">
-                <div class="flex-shrink-0 relative" style="top: -100px;">
-                    <img src="{{ Storage::url($profile->profile_image) ?? 'default-profile.jpg' }}" 
+                <div class="flex-shrink-0 relative border-gray-300" style="top: -100px; ">
+                    <img src="{{ $profile->profile_image ? Storage::url($profile->profile_image) : asset('storage/profile-images/default_profile.png') }}" 
                          alt="Profile" 
-                         class="w-40 h-40 rounded-full border-2 border-gray-200">
+                         class="w-40 h-40 rounded-full border-2 border-gray-200 {{ !$profile->profile_image ? 'bg-gray-200' : '' }}">
                 </div>  
                 
                 <!-- Informasi Data Pengguna -->
