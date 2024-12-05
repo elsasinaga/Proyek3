@@ -11,13 +11,11 @@
             <p class="text-gray-500 text-sm text-left">
                 Dibuat oleh 
                 <span class="font-bold">{{ $moduleLkpd->user->name ?? 'Unknown' }}</span>
-                @if ($moduleLkpd->collaborator && $moduleLkpd->collaborator->count() > 0)
-                    berkolaborasi dengan
-                    @foreach($moduleLkpd->collaborator as $collab)
-                        <span class="font-bold">
-                            {{ $collab->collaborator_name }}
-                        </span>
-                    @endforeach
+                berkolaborasi dengan
+                @if ($moduleLkpd->collaborator->isNotEmpty())
+                    <span class="font-bold">{{ $collaboratorString }}</span>
+                @else
+                    <p>No tags found for this module.</p>
                 @endif
             </p>
         </div>

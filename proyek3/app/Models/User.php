@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(ModuleLkpd::class, 'user_id');
     }
+
+    public function likedLkpd()
+    {
+        return $this->belongsToMany(ModuleLkpd::class, 'lkpd_favorites', 'user_id', 'lkpd_id');
+    }
 }

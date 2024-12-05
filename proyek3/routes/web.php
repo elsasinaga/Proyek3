@@ -27,7 +27,7 @@ Route::get('/profile', function(){
     return view('livewire.profile.profile-page');
 });
 
-Route::get('/profile/edit', UserProfileEdit::class)->name('livewire.profile.edit-page');
+// Route::get('/profile/edit', UserProfileEdit::class)->name('livewire.profile.edit-page');
 
 Route::get('/profile/edit', function(){
     return view('livewire.profile.edit-page');

@@ -7,6 +7,7 @@ use App\Models\Profile;
 use App\Models\ModuleLkpd;
 use Livewire\Component;
 
+
 class ProfilePage extends Component
 {
     public $activeTab = 'lkpd';
