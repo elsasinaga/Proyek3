@@ -27,7 +27,7 @@ Route::get('/profile', function(){
     return view('livewire.profile.profile-page');
 });
 
-Route::get('/profile/edit', UserProfileEdit::class)->name('livewire.profile.edit-page');
+// Route::get('/profile/edit', UserProfileEdit::class)->name('livewire.profile.edit-page');
 
 Route::get('/profile/edit', function(){
     return view('livewire.profile.edit-page');
@@ -41,10 +41,6 @@ Route::get('/home', function () {
     return view('home.homepage'); 
 });
 
-Route::get('/lkpd/detail', function(){
-    return view('livewire.lkpd.lkpd-detail-page');
+Route::get('/lkpd/detail/{id}', function($id){
+    return view('livewire.lkpd.lkpd-detail-page', ['id' => $id]);
 });
-
-// Route::get('/makan', function () {
-//     return view('livewire.homepage'); 
-// });

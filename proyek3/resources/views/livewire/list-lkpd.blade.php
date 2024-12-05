@@ -100,9 +100,11 @@
         <div class="grid grid-cols-3 gap-6 mb-24">
             @foreach($lkpdModules as $lkpd)
             <div class="border rounded-lg overflow-hidden">
-                <img src="{{asset('storage/'.$lkpd->lkpd_image) ??  $lkpd->lkpd_image ?? 'https://via.placeholder.com/200' }}" 
-                     alt="{{ $lkpd->lkpd_title }}" 
-                     class="w-full h-48 object-cover">
+                        <a href="{{ url('/lkpd/detail/'.$lkpd->id) }}"> <!-- Tambahkan tag <a> -->
+                    <img src="{{ asset('storage/'.$lkpd->lkpd_image) ??  $lkpd->lkpd_image ?? 'https://via.placeholder.com/200' }}" 
+                        alt="{{ $lkpd->lkpd_title }}" 
+                        class="w-full h-48 object-cover">
+                </a>
                 <div class="p-4">
                     <h3 class="font-semibold">{{ $lkpd->lkpd_title }}</h3>
                     <h4>{{ $lkpd->user->name }}</h4>

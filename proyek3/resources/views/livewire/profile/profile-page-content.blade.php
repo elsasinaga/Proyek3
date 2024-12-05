@@ -1,5 +1,12 @@
 <div>
     <div class="w-full mx-auto">
+        <div class="flex justify-end p-4">
+            <button 
+                wire:click="triggerImmediateNotification"
+                class="px-4 py-2 bg-blue-500 text-white text-sm rounded-md hover:bg-blue-600">
+                Kirim Notifikasi Langsung
+            </button>
+        </div>
         <div class="relative bg-gray-100">
             <img src="{{asset('storage/profile-images/header-background.png') }}" 
                  alt="Background" 
