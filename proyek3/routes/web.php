@@ -6,6 +6,8 @@ use App\Livewire\ProfilePage;
 use App\Livewire\Profile\UserProfileEdit;
 use App\Http\Livewire\Slider;
 use App\Livewire\ListLkpd;
+use App\Livewire\Dashboard;
+use App\Livewire\LkpdDetail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,3 +46,24 @@ Route::get('/home', function () {
 Route::get('/lkpd/detail', function(){
     return view('livewire.lkpd.lkpd-detail-page');
 });
+
+Route::get('/admin', function(){
+    return view('livewire.admin.dashboard');
+});
+
+Route::prefix('admin')->name('admin.')->group(function(){
+    Route::get('/dashboard', function(){
+        return view('livewire.admin.dashboard');
+    })->name('dashboard');
+    Route::get('/sekolah', function(){
+        return view('livewire.admin.sekolahView');
+    })->name('sekolah');
+    Route::get('/tags', function(){
+        return view('livewire.admin.tagsView');
+    })->name('tags');
+    Route::get('/lkpd', function(){
+        return view('livewire.admin.listLkpd');
+    })->name('lkpd'); 
+});
+
+Route::get('/lkpd/{id}', LkpdDetail::class)->name('lkpd.detail');
