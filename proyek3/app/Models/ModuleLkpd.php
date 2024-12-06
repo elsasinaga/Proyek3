@@ -48,11 +48,18 @@ class ModuleLkpd extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'module_lkpd_tags', 'lkpd_id', 'tag_id')
-                    ->withTimestamps(); // Tambahkan ini untuk mengisi timestamps
+                    ->withTimestamps();
     }
 
     public function collaborator()
     {
-        return $this->belongsToMany(Tag::class, 'module_lkpd_collabs', 'lkpd_id', 'collab_id');
+        return $this->belongsToMany(Collaborator::class, 'module_lkpd_collabs', 'lkpd_id', 'collab_id')
+                    ->withPivot(['created_at', 'updated_at']);
+    }
+
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'lkpd_favorites', 'lkpd_id', 'user_id')
+                    ->withTimestamps();
     }
 }

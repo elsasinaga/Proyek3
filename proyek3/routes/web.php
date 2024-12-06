@@ -29,7 +29,7 @@ Route::get('/profile', function(){
     return view('livewire.profile.profile-page');
 });
 
-Route::get('/profile/edit', UserProfileEdit::class)->name('livewire.profile.edit-page');
+// Route::get('/profile/edit', UserProfileEdit::class)->name('livewire.profile.edit-page');
 
 Route::get('/profile/edit', function(){
     return view('livewire.profile.edit-page');
@@ -67,3 +67,6 @@ Route::prefix('admin')->name('admin.')->group(function(){
 });
 
 Route::get('/lkpd/{id}', LkpdDetail::class)->name('lkpd.detail');
+Route::get('/lkpd/detail/{id}', function($id){
+    return view('livewire.lkpd.lkpd-detail-page', ['id' => $id]);
+});

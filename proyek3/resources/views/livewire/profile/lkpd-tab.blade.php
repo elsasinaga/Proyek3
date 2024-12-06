@@ -5,13 +5,13 @@
             wire:click="$set('activeSubTab', 'upload')"
             class="px-4 py-2 rounded-l-lg hover:bg-green-600 {{ $activeSubTab === 'upload' ? 'bg-green-500 text-white hover:bg-green-500' : 'bg-white border border-green-500' }}"
         >
-            Upload (3)
+            Upload ({{ count($lkpdVerif['upload']) }})
         </button>
         <button 
             wire:click="$set('activeSubTab', 'draft')"
             class="px-4 py-2 rounded-r-lg hover:bg-green-600 {{ $activeSubTab === 'draft' ? 'bg-green-500 text-white hover:bg-green-500' : 'bg-white border-t border-b border-r border-green-500' }}"
         >
-            Draft (1)
+            Draft ({{ count($lkpdVerif['draft']) }})
         </button>
     </div>
 
@@ -19,11 +19,11 @@
     @if ($activeSubTab === 'upload')
         <div class="grid grid-cols-3 gap-6 mb-24">
             <!-- Your existing LKPD cards -->
-            @foreach(range(1,3) as $index)
+            @foreach ($lkpdVerif['upload'] as $item)
             <div class="border rounded-lg overflow-hidden">
-                <img src="/path-to-your-image.jpg" alt="LKPD" class="w-full h-48 object-cover">
+                <img src="{{ $item['lkpd_image'] ?? '/path-to-default-image.jpg' }}" alt="{{ $item['lkpd_title'] }}" class="w-full h-48 object-cover">
                 <div class="p-4">
-                    <h3 class="font-semibold">Menyusun Algoritma dengan Berpikir Komputasional untuk Menyelesaikan Masalah</h3>
+                    <h3 class="font-semibold">{{ $item['lkpd_title'] }}</h3>
                     <div class="flex items-center mt-2 space-x-4">
                         <span class="flex items-center text-sm text-gray-500">
                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,15 +45,17 @@
     @else
         <div class="grid grid-cols-3 gap-6 mb-24">
             <!-- Draft LKPD card -->
+            @foreach ($lkpdVerif['draft'] as $item)
             <div class="border rounded-lg overflow-hidden">
-                <img src="/path-to-draft-image.jpg" alt="Draft LKPD" class="w-full h-48 object-cover">
+                <img src="{{ $item['lkpd_image'] ?? '/path-to-default-image.jpg' }}" alt="{{ $item['lkpd_title'] }}" class="w-full h-48 object-cover">
                 <div class="p-4">
-                    <h3 class="font-semibold">Draft: Menyusun Algoritma Baru</h3>
+                    <h3 class="font-semibold">{{ $item['lkpd_title'] }}</h3>
                     <div class="mt-2">
                         <span class="inline-block bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm">Draft</span>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
     @endif
 </div>

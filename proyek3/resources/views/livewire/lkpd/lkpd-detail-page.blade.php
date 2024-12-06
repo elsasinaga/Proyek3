@@ -7,7 +7,7 @@
     @livewireStyles
 </head>
 <body>
-    @livewire('lkpd.lkpd-detail')
+    @livewire('lkpd.lkpd-detail', ['id' => $id])
     @livewireScripts
 </body>
 </html>
