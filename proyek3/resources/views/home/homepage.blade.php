@@ -23,16 +23,16 @@
     <div class="container mx-auto max-w-screen-lg px-6 py-12">
         <div class="grid grid-cols-3 gap-6 text-center">
             <div>
-                <h3 class="text-green-600 font-bold text-xl">introduction part 1</h3>
-                <p class="text-gray-600 mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <h3 class="text-green-600 font-bold text-xl">Step by Step</h3>
+                <p class="text-gray-600 mt-2">Kami hadir untuk membantu Anda menyelesaikan setiap tantangan dengan panduan praktis dan terarah. Langkah demi langkah, Anda akan menemukan solusi yang mudah dipahami dan dapat diterapkan langsung dalam kehidupan sehari-hari.</p>
             </div>
             <div>
-                <h3 class="text-green-600 font-bold text-xl">introduction part 2</h3>
-                <p class="text-gray-600 mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <h3 class="text-green-600 font-bold text-xl">Jawaban atas Masalah Anda</h3>
+                <p class="text-gray-600 mt-2">Kami mengerti tantangan yang Anda hadapi, mulai dari sulitnya menemukan panduan terstruktur hingga kebutuhan komunitas yang mendukung. Platform ini adalah jawaban bagi Anda yang mencari solusi sederhana dan efisien.</p>
             </div>
             <div>
-                <h3 class="text-green-600 font-bold text-xl">introduction part 3</h3>
-                <p class="text-gray-600 mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <h3 class="text-green-600 font-bold text-xl">Batasan yang Jelas</h3>
+                <p class="text-gray-600 mt-2">Fokus kami adalah menghadirkan panduan yang relevan, praktis, dan mudah diikuti untuk siapa saja. Tanpa kerumitan, tanpa batasan kreativitas – hanya panduan yang benar-benar membantu Anda mencapai tujuan Anda.</p>
             </div>
         </div>
     </div>
