@@ -41,7 +41,10 @@
                 <div class="absolute top-full left-0 w-full mt-2 bg-white rounded-md shadow-lg z-50">
                     <div class="py-2">
                         @foreach($searchResults as $result)
-                            <a href="/lkpd/{{ $result->id }}" class="block px-4 py-2 hover:bg-gray-100">
+                            <button 
+                                wire:click="redirectToDetail({{ $result->id }})" 
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                            >
                                 <div class="flex flex-col">
                                     <span class="font-medium text-gray-900">{{ $result->lkpd_title }}</span>
                                     <span class="text-sm text-gray-600">{{ $result->user->name }}</span>
@@ -55,7 +58,7 @@
                                         </div>
                                     @endif
                                 </div>
-                            </a>
+                            </button>
                         @endforeach
                     </div>
                 </div>
