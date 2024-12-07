@@ -27,6 +27,11 @@ Route::get('/profile', function(){
     return view('livewire.profile.profile-page');
 });
 
+Route::get('/collab/{collaborator_name}', function ($collaborator_name) {
+    return view('livewire.profile.collab-page', compact('collaborator_name'));
+})->name('collab');
+
+
 // Route::get('/profile/edit', UserProfileEdit::class)->name('livewire.profile.edit-page');
 
 Route::get('/profile/edit', function(){

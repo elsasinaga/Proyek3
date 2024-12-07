@@ -19,20 +19,24 @@ class LkpdTab extends Component
         $this->user = User::find(2);
         // dd($this->user->moduleLkpd()->get());
         
-        $lkpd = $this->user->moduleLkpd()->get();
+        $lkpd = $this->user->moduleLkpd()->withCount('likes')->get();
         // dd($lkpd);
         $this->lkpdVerif = [
             'upload' => $lkpd->where('verification_status', true)->values()->map(function($item) {
-            return [
-                'lkpd_title' => $item->lkpd_title ?? 'Untitled',
-                'lkpd_image' => $item->lkpd_image,
-                // tambahkan field lain yang dibutuhkan
-                ];
+                return [
+                    'lkpd_id' => $item->id,
+                    'lkpd_title' => $item->lkpd_title ?? 'Untitled',
+                    'lkpd_image' => $item->lkpd_image,
+                    'like_count' => $item->likes_count, 
+                    // tambahkan field lain yang dibutuhkan
+                    ];
             })->toArray(),
             'draft' => $lkpd->where('verification_status', false)->values()->map(function($item) {
                 return [
+                    'lkpd_id' => $item->id,
                     'lkpd_title' => $item->lkpd_title ?? 'Untitled', 
                     'lkpd_image' => $item->lkpd_image,
+                    'like_count' => $item->likes_count, 
                     // tambahkan field lain yang dibutuhkan
                 ];
             })->toArray(),

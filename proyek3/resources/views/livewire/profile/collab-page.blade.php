@@ -8,7 +8,7 @@
 </head>
 <body>
     @livewire('navbar')
-    @livewire('list-lkpd')
+    @livewire('profile.collab-page', ['collaborator_name' => $collaborator_name])
     @livewireScripts
 </body>
 </html>
