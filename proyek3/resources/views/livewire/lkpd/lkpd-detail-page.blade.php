@@ -9,5 +9,6 @@
 <body>
     @livewire('lkpd.lkpd-detail', ['id' => $id])
     @livewireScripts
+    
 </body>
 </html>
