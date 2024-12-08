@@ -71,7 +71,6 @@ Route::prefix('admin')->name('admin.')->group(function(){
     })->name('lkpd'); 
 });
 
-Route::get('/lkpd/{id}', LkpdDetail::class)->name('lkpd.detail');
 Route::get('/lkpd/detail/{id}', function($id){
     return view('livewire.lkpd.lkpd-detail-page', ['id' => $id]);
 });

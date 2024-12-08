@@ -26,7 +26,7 @@ class ModuleLkpd extends Model
         'material_image',
         'Kelas',
         'Jenjang',
-        'kolaborasi',
+        // 'kolaborasi',
         // 'tags'
     ];
 

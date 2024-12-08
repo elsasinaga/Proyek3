@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Livewire\Admin;
 
 use Livewire\Component;
@@ -8,58 +7,14 @@ use App\Models\Category;
 
 class Tags extends Component
 {
-    public $dataTag, $tagName, $category;
-    public bool $tambahData = false;
-    public bool $modalVisible = false;
-    public $isEditing = false;
-    public $tagId = null;
+    public $dataTag;
     public $tag_name;
     public $selectedCategory;
-    public $categories; // Data kategori untuk dropdown
-
-    public function createData()
-    {
-        $this->resetFields();
-        $this->isEditing = false;
-        $this->modalVisible = true;
-    }
-
-    public function editData($id)
-{
-    $tag = Tag::findOrFail($id);
-
-    $this->tagId = $tag->id;
-    $this->tag_name = $tag->tag_name;
-    $this->selectedCategory = $tag->category_id;
-    $this->isEditing = true;
-    $this->modalVisible = true;
-}
-
-private function resetFields()
-{
-    $this->tagId = null;
-    $this->tag_name = '';
-    $this->selectedCategory = null;
-}
-
-public function updateData()
-{
-    $this->validate([
-        'tag_name' => 'required|string|max:255',
-        'selectedCategory' => 'required|exists:categories,id',
-    ]);
-
-    $tag = Tag::findOrFail($this->tagId);
-    $tag->update([
-        'tag_name' => $this->tag_name,
-        'category_id' => $this->selectedCategory,
-    ]);
-
-    session()->flash('message', 'Data berhasil diperbarui.');
-    $this->closeModal();
-}
-
-
+    public $categories;
+    public $tambahData = false;
+    public $modalVisible = false;
+    public $isEditing = false;
+    public $tagId = null;
 
     public function mount()
     {
@@ -67,10 +22,11 @@ public function updateData()
         $this->categories = Category::all();
     }
 
-    public function edit(Tag $tags)
+    public function createData()
     {
-        dd($tags);
-        // $this->dispatchBrowserEvent('show-form');
+        $this->resetFields();
+        $this->isEditing = false;
+        $this->modalVisible = true;
     }
 
     public function saveData()
@@ -86,26 +42,64 @@ public function updateData()
         ]);
 
         $this->reset(['tag_name', 'selectedCategory']);
-
         $this->tambahData = false;
-
         $this->dataTag = Tag::all();
+    }
 
-        return redirect()->to('/admin/tags')->with('message', 'Data Tags berhasil ditambahkan.');
+    public function editData($id)
+    {
+        $tag = Tag::findOrFail($id);
+        // dd($tag);
+        $this->tagId = $tag->id;
+        $this->tag_name = $tag->tag_name;
+        $this->selectedCategory = $tag->category_id;
+        $this->isEditing = true;
+        $this->modalVisible = true;
+    }
+
+    public function updateData()
+    {
+        $this->validate([
+            'tag_name' => 'required|string|max:255',
+            'selectedCategory' => 'required|exists:categories,id',
+        ]);
+
+        $tag = Tag::findOrFail($this->tagId);
+        $tag->update([
+            'tag_name' => $this->tag_name,
+            'category_id' => $this->selectedCategory,
+        ]);
+
+        $this->closeModal();
+        $this->dataTag = Tag::all();
     }
 
     public function deleteData($id)
     {
         $tag = Tag::findOrFail($id);
         $tag->delete();
-
         $this->dataTag = Tag::all();
-        return redirect()->to('/admin/tags')->with('message', 'Data Tags berhasil dihapus.');
-        // session()->flash('message', 'Data berhasil dihapus.');
+    }
+
+    public function closeModal()
+    {
+        $this->modalVisible = false;
+        $this->tambahData = false;
+        $this->resetFields();
+    }
+
+    private function resetFields()
+    {
+        $this->tagId = null;
+        $this->tag_name = '';
+        $this->selectedCategory = null;
     }
 
     public function render()
     {
-        return view('livewire.admin.tags');
+        return view('livewire.admin.tags', [
+            'dataTag' => $this->dataTag,
+            'categories' => $this->categories
+        ]);
     }
 }

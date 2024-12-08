@@ -28,7 +28,7 @@
                                     <i class="fa-solid fa-pencil"></i>
                                 </x-button> --}}
 
-                                <button class="btn btn-primary" wire:click.prevent="edit({{ $tags->id }})">edit</button>
+                                <button wire:click="editData({{ $tags->id }})" class="btn btn-primary">Edit</button>
                                 {{-- <button onclick="openEditModal({{ $tags->id }})">Open Modal</button> --}}
                             </div>
                             <div class="col-span-1">
@@ -59,8 +59,8 @@
                 @foreach($categories as $cat)
                 <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
                 @endforeach
+            </select>
         </div>
-    </select>
         <x-slot:actions>
             <x-button label="Cancel" @click="$wire.tambahData = false" />
             <x-button label="Save" class="btn-primary" type="submit" spinner="saveData" />

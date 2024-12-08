@@ -34,7 +34,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <p class="text-sm text-gray-500 text-center mt-2">Maks. 1MB</p>
+                            <p class="text-sm text-gray-500 text-center mt-2">Maks. 2MB</p>
                         </div>
 
                         <!-- Profile Information - Adjusted margins -->
