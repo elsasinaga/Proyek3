@@ -58,6 +58,11 @@ class Navbar extends Component
         }
     }
 
+    public function redirectToDetail($id)
+    {
+        return redirect()->to('/lkpd/detail/' . $id);
+    }
+
     public function clearSearch()
     {
         $this->search = '';

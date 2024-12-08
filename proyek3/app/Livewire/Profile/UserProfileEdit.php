@@ -191,6 +191,8 @@ class UserProfileEdit extends Component
         $this->notification_preference = $this->temp_notification_preference;
 
         session()->flash('message', 'Profil berhasil diperbarui');
+
+        return redirect()->to('/profile');
     }
 
     Public function backToProfile()

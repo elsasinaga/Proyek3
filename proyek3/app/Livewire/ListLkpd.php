@@ -46,7 +46,8 @@ class ListLkpd extends Component
 
     public function render()
     {
-        $query = ModuleLkpd::with(['user', 'category', 'tags', 'collaborator']);
+        $query = ModuleLkpd::with(['user', 'category', 'tags', 'collaborator'])
+                            ->withCount('likes');;
        
         if ($this->category_id !== '') {
             $query->where('category_id', $this->category_id);

@@ -12,11 +12,14 @@
             <p class="text-gray-500 text-sm text-left">
                 Dibuat oleh 
                 <span class="font-bold">{{ $moduleLkpd->user->name ?? 'Unknown' }}</span>
-                berkolaborasi dengan
                 @if ($moduleLkpd->collaborator->isNotEmpty())
-                    <span class="font-bold">{{ $collaboratorString }}</span>
-                @else
-                    <p>No tags found for this module.</p>
+                    Berkolaborasi dengan
+                    @foreach ($moduleLkpd->collaborator as $collaborator)
+                        <a href="{{ route('collab', ['collaborator_name' => urlencode($collaborator->collaborator_name)]) }}"
+                        class="text-blue-400 hover:underline">
+                            {{ $collaborator->collaborator_name }}
+                        </a>{{ !$loop->last ? ',' : '' }}
+                    @endforeach
                 @endif
             </p>
         </div>

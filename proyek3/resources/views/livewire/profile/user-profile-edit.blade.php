@@ -9,7 +9,9 @@
         <form wire:submit.prevent="updateProfile">
             <div class="w-full mx-auto">
                 <div class="relative bg-gray-100">
-                    <img src="your-background-image.jpg" alt="Background" class="w-full h-36 object-cover">
+                    <img src="{{asset('storage/profile-images/header-background.png') }}" 
+                        alt="Background" 
+                        class="w-full h-36 object-cover" style="object-position: 50% 35%;">
                 </div>
                 <div class="mt-4 px-60">
                     <div class="flex items-start relative">
@@ -21,9 +23,7 @@
                                 @elseif($profile_image)
                                     <img class="w-full h-full object-cover" src="{{ Storage::url($profile_image) }}" alt="Profile photo">
                                 @else
-                                    <div class="w-full h-full flex items-center justify-center text-gray-500">
-                                        No Image
-                                    </div>
+                                    <img class="w-full h-full object-cover bg-gray-200" src="{{asset('storage/profile-images/default_profile.png')}}" alt="Profile photo">
                                 @endif
 
                                 <!-- Hover Overlay for Upload -->
@@ -34,7 +34,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <p class="text-sm text-gray-500 text-center mt-2">Maks. 1MB</p>
+                            <p class="text-sm text-gray-500 text-center mt-2">Maks. 2MB</p>
                         </div>
 
                         <!-- Profile Information - Adjusted margins -->
