@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', action: function(){
-    return view('Welcome');
+Route::get('/tambah', action: function(){
+    return view('livewire.tambahLkpd');
 });
 
 Route::get('/profile', function(){
